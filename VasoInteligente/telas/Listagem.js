@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView, StyleSheet } from 'react-native'
-import { DataTable, FAB, Appbar} from 'react-native-paper'
+import { DataTable, FAB, Appbar, Text } from 'react-native-paper'
 import { useState, useEffect } from 'react'
 
 
@@ -10,22 +10,20 @@ import servidor from '../utils/servidor'
 export default function Listagem({ navigation }) {
   const [plantas, setPlantas] = useState([])
 
-
-
   function verDetalhes(planta) {
     navigation.navigate('Detalhes', planta)
   }
 
-
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
-      let plantas = await servidor.lerPlantas()
+      let novasPlantas = await servidor.indexPlantas()
+      let especies2 = await servidor.listarEspecies()
 
-
-      if (plantas) {
-        setPlantas(plantas)
+      if (novasPlantas) {
+        console.dir(novasPlantas)
+        console.dir(especies2)
+        setPlantas(novasPlantas)
       } else {
-        console.log(erro)
         alert("Erro ao tentar ler as plantas")
       }
     });
@@ -51,17 +49,17 @@ export default function Listagem({ navigation }) {
           </DataTable.Header>
 
 
-          {plantas.map((planta) => (
+          {plantas.map( (planta) => (
             <DataTable.Row
-              key={planta.id}
-              onPress={() => verDetalhes(planta)}
+                key={planta.id}
+                onPress={() => verDetalhes(planta)}
             >
-              <DataTable.Cell>{planta.nome_planta}</DataTable.Cell>
-              <DataTable.Cell>{planta.especie}</DataTable.Cell>
-              <DataTable.Cell>{planta.data_plantio}</DataTable.Cell>
+                <DataTable.Cell>{planta.nome_planta}</DataTable.Cell>
+                <DataTable.Cell>{planta.especie.nome_cientifico}</DataTable.Cell>
+                <DataTable.Cell>{planta.data_plantio}</DataTable.Cell>
 
 
-            </DataTable.Row>
+                </DataTable.Row>
           ))}
 
 

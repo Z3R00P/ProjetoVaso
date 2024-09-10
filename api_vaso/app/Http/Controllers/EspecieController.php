@@ -10,7 +10,7 @@ class EspecieController extends Controller
 {
     public function index()
     {
-        $epecies = Especie::with('plantas')->get();
+        $epecies = Especie::get();
         return response()->json($epecies);
     }
     public function create(StoreEspecieRequest $request)

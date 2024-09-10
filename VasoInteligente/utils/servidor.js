@@ -1,53 +1,87 @@
-async function lerPlantas() {
-    return [
-      {
-        id: 1,
-        nome_planta: 'Samambaia',
-        data_plantio: '2024-08-24',
-        especie: "bromélia"
-      },
-      {
-        id: 2,
-        nome_planta: 'Flor do Deserto',
-        data_plantio: '2024-05-15',
-        especie: "Adenium obesum"
-      },
-      {
-        id: 3,
-        nome_planta: 'Copo de Leite',
-        data_plantio: '2024-04-20',
-        especie: "Liliopsida"
-      },
-      {
-        id: 4,
-        nome_planta: 'Espada de São Jorge',
-        data_plantio: '2024-07-13',
-        especie: "Dracaena"
-      },
-      {
-        id: 5,
-        nome_planta: 'Suculenta',
-        data_plantio: '2024-10-16',
-        especie: "crassuláceas"
-      },
-]}
-
+/**
+ * Lida com toda a comunicação com o servidor (API REST)
+ */
+async function indexPlantas() {
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/plantas')
+    return await response.json()
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
 
 async function adicionarPlanta(planta) {
-    return true
-  }
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/plantas', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        nome_planta: planta.nome_planta,
+        data_plantio: planta.data_plantio,
+        especie_id: planta.especie_id
+      })
+    })
 
-  async function editarPlanta(planta) {
-    return true
+    return response.status == 201
+  } catch (error) {
+    console.log(error)
+    return false
   }
+}
 
-  async function removerPlanta(planta) {
-    return true
-  }
+async function editarPlanta(planta) {
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/planta/' + planta.id, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        nome_planta: planta.nome_planta,
+        data_plantio: planta.data_plantio,
+        especie_id: planta.especie_id
+      })
+    })
 
-  module.exports = {
-    lerPlantas,
-    adicionarPlanta,
-    editarPlanta,
-    removerPlanta
+    return response.status == 201
+  } catch (error) {
+    console.log(error)
+    return false
   }
+}
+
+async function removerPlanta(planta) {
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/planta/' + planta.id, {
+      method: 'DELETE'
+    })
+
+    return response.status == 204
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
+
+async function listarEspecies() {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/api/especies')
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+}
+
+module.exports = {
+  indexPlantas,
+  adicionarPlanta,
+  editarPlanta,
+  removerPlanta,
+  listarEspecies
+}

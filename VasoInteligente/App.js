@@ -1,11 +1,12 @@
-import { NavigationContainer } from "@react-navigation/native"
-import { createStackNavigator } from "@react-navigation/stack"
-import { Provider, DefaultTheme } from 'react-native-paper'
+import React from "react-native"
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Provider, DefaultTheme } from "react-native-paper";
 
 
-import Listagem from './telas/Listagem'
-import AdicionarPlanta from './telas/AdicionarPlanta'
-import Detalhes from './telas/Detalhes'
+import Listagem from './telas/Listagem';
+import AdicionarPlanta from './telas/AdicionarPlanta';
+import Detalhes from './telas/Detalhes';
 
 
 const Stack = createStackNavigator()

@@ -1,99 +1,65 @@
-import { useEffect, useState } from 'react'
-import { SafeAreaView, StyleSheet, View } from 'react-native'
-import { Button, TextInput, Appbar } from 'react-native-paper'
+import { StatusBar } from 'expo-status-bar';
+import { SafeAreaView, StyleSheet } from 'react-native'
+import { Modal,Portal,Appbar, TextInput,Button, Text} from 'react-native-paper'
+import { useState, useEffect } from 'react'
 
 
 import servidor from '../utils/servidor'
 
 
-export default function Adicionar({ route, navigation }) {
-  const [id, setId] = useState('')
+export default function Adicionar({ navigation }) {
   const [nome_planta, setNomePlanta] = useState('')
   const [data_plantio, setDataPlantio] = useState('')
   const [especie, setEspecie] = useState('')
 
-
-  async function removerPlanta() {
-    let resp = await servidor.removerPlanta({
-      id: id,
-      nome_planta: nome_planta,
-      data_plantio: data_plantio,
-      especie: especie
+  async function adicionarPlanta() {
+    let resp = await servidor.adicionarPlanta({
+        nome_planta: nome_planta,
+        data_plantio: data_plantio,
+        especie_id: especie
     })
-
-    if(resp) {
-      alert("Planta removida")
-      navigation.navigate("Listagem")
+    if (resp) {
+        alert("Planta adicionada com sucesso")
+        setNomePlanta("")
+        setDataPlantio("")
+        setEspecie("")
     } else {
-      alert("Erro ao remover planta")
+        alert("Erro ao adicionar planta")
     }
   }
 
 
-  async function editarPlanta() {
-    let resp = await servidor.editarPlanta({
-      id: id,
-      nome_planta: nome_planta,
-      data_plantio: data_plantio,
-      especie: especie
-    })
-
-    if(resp){
-      alert("Planta editada")
-      navigation.navigate("Listagem")
-    } else {
-      alert("Erro ao editar planta")
-    }
-  }
+  const [visible, setVisible] = useState(false);
 
 
-  // configura os valores a partir dos que foram passados na navegação
-   useEffect(() => {
-    const planta = route.params
-    if (planta) {
-      setId(planta.id)
-      setNomePlanta(planta.nome_planta)
-      setDataPlantio(planta.data_plantio)
-      setEspecie(planta.especie)
-    }
-  }, [route.params])
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = {backgroundColor: 'white', padding: 100, margin: 50, fontSize: 10};
+
 
   return (
     <>
       <Appbar>
         <Appbar.BackAction onPress={() => { navigation.goBack() }} />
-        <Appbar.Content title="Detalhes" />
+        <Appbar.Content title="Adicionar Planta" />
       </Appbar>
 
 
       <SafeAreaView style={styles.container}>
-        <TextInput style={styles.item} label="ID" value={id} readOnly={true} onChangeText={setId}/>
 
 
-        <TextInput style={styles.item} label="Nome da Planta" value={nome_planta} onChangeText={setNomePlanta}/>
-        <TextInput style={styles.item} label="Data de Plantio" value={data_plantio} onChangeText={setDataPlantio}/>
-        <TextInput style={styles.item} label="Espécie" value={especie} onChangeText={setEspecie}/>
-
-
-        <View style={styles.barraBotao}>
-          <Button
-            mode="contained"
-            style={styles.botao}
-            icon="delete"
-            onPress={removerPlanta}>Remover
-          </Button>
-
-
-          <Button
-            mode="contained"
-            style={styles.botao}
-            icon="file-edit"
-            onPress={editarPlanta}>Editar
-          </Button>
-        </View>
-
+      <TextInput style={styles.item} label="Nome" value={nome_planta} onChangeText={setNomePlanta}/>
+      <TextInput style={styles.item} label="Data de Plantio" value={data_plantio} onChangeText={setDataPlantio}/>
+      <TextInput style={styles.item} label="Especie" value={especie} onChangeText={setEspecie} />
+      <Button mode="contained" style={styles.botao} onPress={adicionarPlanta} icon="plus" >Adicionar sua Planta</Button>
 
       </SafeAreaView>
+      <Portal>
+        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+          <Text>Planta cadatrada com Sucesso!!!</Text>
+        </Modal>
+      </Portal>
+
     </>
   );
 }
@@ -101,19 +67,12 @@ export default function Adicionar({ route, navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 5,
-    marginTop: 20
+    margin: 5
   },
-  item: {
-    marginBottom: 5
-  },
-  botao: {
-    margin: 5,
-    marginTop: 20,
-    flexGrow: 1
-  },
-  barraBotao: {
-    width: '100%',
-    flexDirection: 'row'
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
   }
-})
+});
