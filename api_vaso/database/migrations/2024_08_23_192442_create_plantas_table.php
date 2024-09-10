@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nome_planta');
             $table->date('data_plantio');
+            $table->integer('umidade')->nullable();
+            $table->integer('luz')->nullable();
+            $table->integer('temperatura')->nullable();
             $table->foreignId('especie_id')->constrained('especies');
             $table->timestamps();
         });

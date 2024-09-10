@@ -17,11 +17,9 @@ export default function Listagem({ navigation }) {
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
       let novasPlantas = await servidor.indexPlantas()
-      let especies2 = await servidor.listarEspecies()
 
       if (novasPlantas) {
         console.dir(novasPlantas)
-        console.dir(especies2)
         setPlantas(novasPlantas)
       } else {
         alert("Erro ao tentar ler as plantas")

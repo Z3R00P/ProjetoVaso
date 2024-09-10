@@ -14,3 +14,8 @@ Route::post('/especies', [\App\Http\Controllers\EspecieController::class, 'creat
 Route::get('/especie/{id}', [\App\Http\Controllers\EspecieController::class, 'read']);
 Route::put('/especie/{id}', [\App\Http\Controllers\EspecieController::class, 'update']);
 Route::delete('/especie/{id}', [\App\Http\Controllers\EspecieController::class, 'delete']);
+
+Route::get('/parametros', [\App\Http\Controllers\ParametroController::class, 'index']);
+Route::post('/parametros', [\App\Http\Controllers\ParametroController::class, 'create']);
+Route::put('/parametro/{id}', [\App\Http\Controllers\ParametroController::class, 'update']);
+Route::delete('/parametro/{id}', [\App\Http\Controllers\ParametroController::class, 'delete']);

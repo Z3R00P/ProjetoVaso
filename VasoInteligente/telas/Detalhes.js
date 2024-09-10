@@ -11,6 +11,9 @@ export default function Detalhes({ route, navigation }) {
   const [id, setId] = useState('')
   const [nome_planta, setNomePlanta] = useState('')
   const [data_plantio, setDataPlantio] = useState('')
+  const [umidade, setUmidade] = useState('')
+  const [luz, setLuz] = useState('')
+  const [temperatura, setTemperatura] = useState('')
   const [especie, setEspecie] = useState('')
   const [listaEspecies, setListaEspecies] = useState([])
   const [showDropDown, setShowDropDown] = useState(false)
@@ -27,7 +30,7 @@ export default function Detalhes({ route, navigation }) {
         alert('Planta removida')
         navigation.navigate("Listagem")
     } catch (error) {
-        alert('Erro ao removerr planta' + error.message)
+        alert('Erro ao remover planta' + error.message)
     }
   }
 
@@ -37,6 +40,9 @@ export default function Detalhes({ route, navigation }) {
       id: id,
       nome_planta: nome_planta,
       data_plantio: data_plantio,
+      umidade: umidade,
+      luz: luz,
+      temperatura: temperatura,
       especie_id: especie
     })
 
@@ -63,6 +69,9 @@ export default function Detalhes({ route, navigation }) {
       setId(planta.id)
       setNomePlanta(planta.nome_planta)
       setDataPlantio(planta.data_plantio)
+      setUmidade(planta.umidade)
+      setLuz(planta.luz)
+      setTemperatura(planta.temperatura)
       setEspecie(planta.especie.id)
     }
 
@@ -83,6 +92,9 @@ export default function Detalhes({ route, navigation }) {
 
         <TextInput style={styles.item} label="Nome da Planta" value={nome_planta} onChangeText={setNomePlanta}/>
         <TextInput style={styles.item} label="Data de Plantio" value={data_plantio} onChangeText={setDataPlantio}/>
+        <TextInput style={styles.item} label="Umidade da terra" value={umidade} onChangeText={setUmidade}/>
+        <TextInput style={styles.item} label="Quantidade de luz" value={luz} onChangeText={setLuz}/>
+        <TextInput style={styles.item} label="Temperatura do ar" value={temperatura} onChangeText={setTemperatura}/>
         <RNPickerSelect
           placeholder={{ label: 'Selecione uma espécie', value: null }}
           items={listaEspecies}

@@ -44,6 +44,9 @@ async function editarPlanta(planta) {
       body: JSON.stringify({
         nome_planta: planta.nome_planta,
         data_plantio: planta.data_plantio,
+        umidade: planta.umidade,
+        luz: planta.luz,
+        temperatura: planta.temperatura,
         especie_id: planta.especie_id
       })
     })

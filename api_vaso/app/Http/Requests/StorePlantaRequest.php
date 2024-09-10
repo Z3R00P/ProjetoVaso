@@ -26,6 +26,9 @@ class StorePlantaRequest extends FormRequest
         return [
             'nome_planta' => 'required|string|min:3|max:100',
             'data_plantio' => 'required|date',
+            'umidade' => 'numeric|min:1',
+            'luz' => 'numeric|min:1',
+            'temperatura' => 'numeric|min:1',
             'especie_id' => 'required',
         ];
     }

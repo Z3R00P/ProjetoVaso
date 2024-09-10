@@ -13,7 +13,10 @@ class Planta extends Model
     protected $fillable = [
         'nome_planta',
         'data_plantio',
-        'especie_id'
+        'umidade',
+        'luz',
+        'temperatura',
+        'especie_id',
     ];
 
     public function especie()
