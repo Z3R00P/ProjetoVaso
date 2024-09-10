@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { SafeAreaView, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { Modal,Portal,Appbar, TextInput,Button, Text} from 'react-native-paper'
 import RNPickerSelect from 'react-native-picker-select'
 
@@ -58,15 +58,12 @@ export default function Adicionar({ route, navigation }) {
 
   return (
     <>
-      <Appbar>
+    <View style={styles.background}>
+      <Appbar style={styles.bar}>
         <Appbar.BackAction onPress={() => { navigation.goBack() }} />
         <Appbar.Content title="Adicionar Planta" />
       </Appbar>
-
-
-      <SafeAreaView style={styles.container}>
-
-
+      <View style={styles.container}>
       <TextInput style={styles.item} label="Nome" value={nome_planta} onChangeText={setNomePlanta}/>
       <TextInput style={styles.item} label="Data de Plantio" value={data_plantio} onChangeText={setDataPlantio}/>
       <RNPickerSelect
@@ -77,14 +74,13 @@ export default function Adicionar({ route, navigation }) {
         style={pickerSelectStyles}
       />
       <Button mode="contained" style={styles.botao} onPress={adicionarPlanta} icon="plus" >Adicionar sua Planta</Button>
-
-      </SafeAreaView>
+      </View>
       <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
           <Text>Planta cadatrada com Sucesso!!!</Text>
         </Modal>
       </Portal>
-
+    </View>
     </>
   );
 }
@@ -92,23 +88,37 @@ export default function Adicionar({ route, navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 5
+    margin: 5,
+    marginTop: 20
   },
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
-  }
-});
-
+  background: {
+    flex: 1,
+  },
+  bar: {
+    backgroundColor: '#45bf55'
+  },
+  item: {
+    backgroundColor: '#a3ffb6',
+    marginBottom: 5
+  },
+  botao: {
+    backgroundColor: '#45bf55',
+    margin: 5,
+    marginTop: 20,
+    flexGrow: 1
+  },
+  barraBotao: {
+    width: '100%',
+    flexDirection: 'row'
+  },
+})
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
       fontSize: 16,
       paddingHorizontal: 10,
       paddingVertical: 8,
-      backgroundColor: '#E7E0EC',
-      borderColor: '#E7E0EC',
+      backgroundColor: '#a3ffb6',
+      borderColor: '#a3ffb6',
       borderTopLeftRadius: 4,
       borderTopRightRadius: 4,
       color: 'black',
@@ -118,8 +128,8 @@ const pickerSelectStyles = StyleSheet.create({
       fontSize: 16,
       paddingHorizontal: 10,
       paddingVertical: 8,
-      backgroundColor: '#E7E0EC',
-      borderColor: '#E7E0EC',
+      backgroundColor: '#a3ffb6',
+      borderColor: '#a3ffb6',
       borderTopLeftRadius: 4,
       borderTopRightRadius: 4,
       color: 'black',
@@ -129,8 +139,8 @@ const pickerSelectStyles = StyleSheet.create({
       fontSize: 16,
       paddingHorizontal: 10,
       paddingVertical: 8,
-      backgroundColor: '#E7E0EC',
-      borderColor: '#E7E0EC',
+      backgroundColor: '#a3ffb6',
+      borderColor: '#a3ffb6',
       borderTopLeftRadius: 4,
       borderTopRightRadius: 4,
       color: 'black',

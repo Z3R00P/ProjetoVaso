@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { SafeAreaView, StyleSheet, View } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { Button, TextInput, Appbar } from 'react-native-paper'
 import RNPickerSelect from 'react-native-picker-select'
 
@@ -80,16 +80,14 @@ export default function Detalhes({ route, navigation }) {
 
   return (
     <>
-      <Appbar>
+    <View style={styles.background}>
+      <Appbar style={styles.bar}>
         <Appbar.BackAction onPress={() => { navigation.goBack() }} />
         <Appbar.Content title="Detalhes" />
       </Appbar>
 
-
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <TextInput style={styles.item} label="ID" value={id} readOnly={true}/>
-
-
         <TextInput style={styles.item} label="Nome da Planta" value={nome_planta} onChangeText={setNomePlanta}/>
         <TextInput style={styles.item} label="Data de Plantio" value={data_plantio} onChangeText={setDataPlantio}/>
         <TextInput style={styles.item} label="Umidade da terra" value={umidade} onChangeText={setUmidade}/>
@@ -102,7 +100,6 @@ export default function Detalhes({ route, navigation }) {
           value={especie}
           style={pickerSelectStyles}
         />
-
 
         <View style={styles.barraBotao}>
           <Button
@@ -120,9 +117,8 @@ export default function Detalhes({ route, navigation }) {
             onPress={editarPlanta}>Editar
           </Button>
         </View>
-
-
-      </SafeAreaView>
+      </View>
+    </View>
     </>
   );
 }
@@ -133,10 +129,18 @@ const styles = StyleSheet.create({
     margin: 5,
     marginTop: 20
   },
+  background: {
+    flex: 1,
+  },
+  bar: {
+    backgroundColor: '#45bf55'
+  },
   item: {
+    backgroundColor: '#a3ffb6',
     marginBottom: 5
   },
   botao: {
+    backgroundColor: '#45bf55',
     margin: 5,
     marginTop: 20,
     flexGrow: 1
@@ -151,8 +155,8 @@ const pickerSelectStyles = StyleSheet.create({
       fontSize: 16,
       paddingHorizontal: 10,
       paddingVertical: 8,
-      backgroundColor: '#E7E0EC',
-      borderColor: '#E7E0EC',
+      backgroundColor: '#a3ffb6',
+      borderColor: '#a3ffb6',
       borderTopLeftRadius: 4,
       borderTopRightRadius: 4,
       color: 'black',
@@ -162,8 +166,8 @@ const pickerSelectStyles = StyleSheet.create({
       fontSize: 16,
       paddingHorizontal: 10,
       paddingVertical: 8,
-      backgroundColor: '#E7E0EC',
-      borderColor: '#E7E0EC',
+      backgroundColor: '#a3ffb6',
+      borderColor: '#a3ffb6',
       borderTopLeftRadius: 4,
       borderTopRightRadius: 4,
       color: 'black',
@@ -173,8 +177,8 @@ const pickerSelectStyles = StyleSheet.create({
       fontSize: 16,
       paddingHorizontal: 10,
       paddingVertical: 8,
-      backgroundColor: '#E7E0EC',
-      borderColor: '#E7E0EC',
+      backgroundColor: '#a3ffb6',
+      borderColor: '#a3ffb6',
       borderTopLeftRadius: 4,
       borderTopRightRadius: 4,
       color: 'black',

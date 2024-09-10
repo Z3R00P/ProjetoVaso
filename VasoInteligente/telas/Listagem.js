@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import { SafeAreaView, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { DataTable, FAB, Appbar, Text } from 'react-native-paper'
 import { useState, useEffect } from 'react'
 
@@ -33,20 +33,19 @@ export default function Listagem({ navigation }) {
 
   return (
     <>
-      <Appbar>
+    <View style={styles.background}>
+      <Appbar style={styles.bar}>
         <Appbar.Content title="Plantas" />
       </Appbar>
 
 
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <DataTable>
           <DataTable.Header>
-            <DataTable.Title style={styles.titulo1}>Nome da Planta</DataTable.Title>
+            <DataTable.Title style={styles.titulo}>Nome da Planta</DataTable.Title>
             <DataTable.Title>Espécie da Planta</DataTable.Title>
             <DataTable.Title>Data de Plantio</DataTable.Title>
           </DataTable.Header>
-
-
           {plantas.map( (planta) => (
             <DataTable.Row
                 key={planta.id}
@@ -59,21 +58,16 @@ export default function Listagem({ navigation }) {
 
                 </DataTable.Row>
           ))}
-
-
         </DataTable>
-
-
         <StatusBar mode="auto" />
-
-
-      </SafeAreaView>
+      </View>
       <FAB
         style={styles.fab}
         small
         icon="plus"
         onPress={() => navigation.navigate('AdicionarPlanta')}
       />
+    </View>
     </>
   );
 }
@@ -82,17 +76,24 @@ export default function Listagem({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     margin: 10,
-    /*backgroundColor: '#91ba4f',*/
-
+    backgroundColor: '#a3ffb6',
+    borderRadius: 5,
   },
-  titulo1:{
-   /* backgroundColor: '#91ba4f'*/
-   color: 'red'
+  background: {
+    flex: 1,
+  },
+  bar: {
+    backgroundColor: '#45bf55'
+  },
+  titulo:{
+    fontWeight: 'bold',
+    color: '#fff'
   },
   fab: {
     position: 'absolute',
     margin: 16,
     right: 0,
     bottom: 0,
+    backgroundColor: '#45bf55',
   }
 });
