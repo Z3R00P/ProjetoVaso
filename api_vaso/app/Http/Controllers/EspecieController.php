@@ -46,7 +46,7 @@ class EspecieController extends Controller
     public function update(StoreEspecieRequest $request, $id)
     {
         try {
-            $especie = Especie::find($id);
+            $especie = Especie::findOrFail($id);
             $especie->update($request->validated());
             return response()->json([
                 'success' => true,

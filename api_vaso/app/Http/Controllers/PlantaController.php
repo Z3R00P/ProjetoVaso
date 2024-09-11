@@ -47,7 +47,7 @@ class PlantaController extends Controller
     public function update(StorePlantaRequest $request, $id)
     {
         try {
-            $planta = Planta::find($id);
+            $planta = Planta::findOrFail($id);
             $planta->update($request->validated());
             return response()->json([
                 'sucess' => true,
