@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { Button, TextInput, Appbar } from 'react-native-paper'
+import { Button, TextInput, Appbar, Modal, Portal, Text } from 'react-native-paper'
 import RNPickerSelect from 'react-native-picker-select'
 
 
@@ -27,7 +27,7 @@ export default function Detalhes({ route, navigation }) {
               data_plantio: data_plantio,
               especie_id: especie
         })
-        alert('Planta removida')
+        setVisible(true)
         navigation.navigate("Listagem")
     } catch (error) {
         alert('Erro ao remover planta' + error.message)
@@ -47,7 +47,7 @@ export default function Detalhes({ route, navigation }) {
     })
 
     if(resp){
-      alert("Planta editada")
+      setVisible(true)
       navigation.navigate("Listagem")
     } else {
       alert("Erro ao editar planta")
@@ -77,6 +77,13 @@ export default function Detalhes({ route, navigation }) {
 
     fetchEspecies();
   }, [route.params])
+
+    const [visible, setVisible] = useState(false);
+
+
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
+    const containerStyle = {backgroundColor: 'white', padding: 100, margin: 50, fontSize: 10};
 
   return (
     <>
@@ -114,9 +121,16 @@ export default function Detalhes({ route, navigation }) {
             mode="contained"
             style={styles.botao}
             icon="file-edit"
-            onPress={editarPlanta}>Editar
+            onPress={editarPlanta}>
+            Editar
           </Button>
         </View>
+        <Portal>
+            <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+              <Text>Sucesso!!!</Text>
+              <Button style={styles.botao} onPress={hideModal}>Fechar</Button>
+            </Modal>
+        </Portal>
       </View>
     </View>
     </>

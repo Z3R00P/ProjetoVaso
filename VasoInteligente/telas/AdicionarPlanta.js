@@ -24,8 +24,8 @@ export default function Adicionar({ route, navigation }) {
         especie_id: especie
     })
     if (resp) {
+        setVisible(true)
         setShowDropDown(true)
-        alert("Planta adicionada com sucesso")
         setNomePlanta("")
         setDataPlantio("")
         setEspecie("")
@@ -78,6 +78,7 @@ export default function Adicionar({ route, navigation }) {
       <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
           <Text>Planta cadatrada com Sucesso!!!</Text>
+          <Button style={styles.botao} onPress={hideModal}>Fechar</Button>
         </Modal>
       </Portal>
     </View>
